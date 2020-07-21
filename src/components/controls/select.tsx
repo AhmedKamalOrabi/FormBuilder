@@ -14,9 +14,9 @@ import {
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { InputProps } from './input';
 
-export interface SelectProps<T = any, U = any> extends InputProps<T> {
-  options?: U[];
-  getOptionsData?(): Promise<U[]>;
+export interface SelectProps extends InputProps {
+  options?: any[];
+  getOptionsData?(param?: any): Promise<any[]>;
   multiple?: boolean;
   propertyName?: string;
   propertyValue?: string;

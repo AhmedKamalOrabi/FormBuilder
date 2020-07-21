@@ -8,7 +8,7 @@ import React, { ReactNode, useState } from 'react';
 import { TextField, InputAdornment, IconButton } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-export interface InputProps<T = any> {
+export interface InputProps {
   id?: string;
   name: string;
   label: string;
