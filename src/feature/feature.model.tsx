@@ -100,7 +100,7 @@ export const FeatureModel: IFeatureModel = {
       kind: 'select',
       label: 'City',
       name: 'city',
-      getOptionsData: (countryId) => getCountries(countryId),
+      getOptionsData: getCountries,
       textProperty: 'name',
       valueProperty: 'name',
     },

@@ -65,7 +65,7 @@ export function Form<T = any>(props: FormProps<T>) {
         )[0];
 
         if (event.target.value === value) {
-          source[action] = !source[action];
+          // source[action] = !source[action];
         }
       });
     }
