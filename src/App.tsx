@@ -3,7 +3,7 @@ import { AddUser } from './feature/add-user';
 
 function App() {
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <AddUser />
     </div>
   );

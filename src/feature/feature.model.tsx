@@ -4,6 +4,7 @@ import { getPostsByUserId } from '../services/posts.service';
 import { IFeatureModel } from '../interfaces/IFeatureModel';
 import { IUser } from '../interfaces/IUser';
 import { ICountry } from '../interfaces/ICountry';
+import moment from 'moment';
 
 // interface IRadioOption {
 //   label: string;
@@ -44,6 +45,9 @@ export const FeatureModel: IFeatureModel = {
       label: 'User name',
       placeholder: 'Please enter user name',
       helperText: 'enter valid user name',
+      hide: false,
+      disabled: false,
+      readOnly: false,
     },
     {
       kind: 'input',
@@ -51,6 +55,9 @@ export const FeatureModel: IFeatureModel = {
       name: 'email',
       label: 'Email',
       placeholder: 'Please enter email',
+      hide: false,
+      disabled: false,
+      readOnly: false,
     },
     {
       kind: 'input',
@@ -59,6 +66,9 @@ export const FeatureModel: IFeatureModel = {
       label: 'Password',
       placeholder: 'Please enter password',
       togglePassword: true,
+      hide: false,
+      disabled: false,
+      readOnly: false,
     },
     {
       kind: 'input',
@@ -67,14 +77,32 @@ export const FeatureModel: IFeatureModel = {
       label: 'Confirm password',
       placeholder: 'Please enter confirm password',
       togglePassword: true,
+      hide: false,
+      disabled: false,
+      readOnly: false,
     },
     {
       kind: 'select',
-      type: 'select',
       label: 'Country',
       name: 'country',
       getOptionsData: getCountries,
-      shrink: true,
+      textProperty: 'name',
+      valueProperty: 'name',
+      depend: [
+        {
+          name: 'city',
+          value: '',
+          action: 'fetch',
+        },
+      ],
+    },
+    {
+      kind: 'select',
+      label: 'City',
+      name: 'city',
+      getOptionsData: (countryId) => getCountries(countryId),
+      textProperty: 'name',
+      valueProperty: 'name',
     },
     {
       kind: 'autocomplete',
@@ -82,7 +110,8 @@ export const FeatureModel: IFeatureModel = {
       name: 'post',
       getOptionsData: getPostsByUserId,
       // renderOption: (option?: any) => <RenderOption option={option} />,
-      propertyName: 'title',
+      textProperty: 'title',
+      valueProperty: 'title',
     },
     {
       kind: 'toggle-buttons',
@@ -91,19 +120,19 @@ export const FeatureModel: IFeatureModel = {
       exclusive: true,
       options: [
         {
-          label: 'Left',
+          text: 'Left',
           value: 'left',
         },
         {
-          label: 'Center',
+          text: 'Center',
           value: 'center',
         },
         {
-          label: 'Right',
+          text: 'Right',
           value: 'right',
         },
         {
-          label: 'Justify',
+          text: 'Justify',
           value: 'justify',
           disabled: true,
         },
@@ -119,15 +148,15 @@ export const FeatureModel: IFeatureModel = {
       labelPlacement: 'end',
       options: [
         {
-          label: 'Male',
+          text: 'Male',
           value: 'male',
         },
         {
-          label: 'Female',
+          text: 'Female',
           value: 'female',
         },
         {
-          label: 'Other',
+          text: 'Other',
           value: 'other',
         },
       ],
@@ -138,17 +167,22 @@ export const FeatureModel: IFeatureModel = {
       label: 'Color',
       options: [
         {
-          label: 'Red',
+          text: 'Red',
           value: 'red',
         },
         {
-          label: 'Green',
+          text: 'Green',
           value: 'green',
         },
         {
-          label: 'Blue',
+          text: 'Blue',
           value: 'blue',
         },
+      ],
+      depend: [
+        { name: 'userName', value: 'green', action: 'hide' },
+        { name: 'email', value: 'green', action: 'disabled' },
+        { name: 'password', value: 'red', action: 'readOnly' },
       ],
     },
     {
@@ -158,7 +192,7 @@ export const FeatureModel: IFeatureModel = {
       size: 'small',
       options: [
         {
-          label: 'Active',
+          text: 'Active',
           value: true,
         },
       ],
@@ -169,12 +203,13 @@ export const FeatureModel: IFeatureModel = {
       label: 'Picture',
       id: 'picture',
     },
-    {
-      kind: 'datepicker',
-      name: 'dateOfBirth',
-      label: 'Date Birth',
-      id: 'dateOfBirth',
-      date: new Date(),
-    },
+    // {
+    //   kind: 'datepicker',
+    //   name: 'dateOfBirth',
+    //   label: 'Date Birth',
+    //   id: 'dateOfBirth',
+    //   minDate: moment().subtract(1, 'day'),
+    //   maxDate: moment().subtract(5, 'days'),
+    // },
   ],
 };

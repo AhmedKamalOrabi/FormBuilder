@@ -1,16 +1,18 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Grid } from '@material-ui/core';
-import { Input } from './controls/input';
-import { Select } from './controls/select';
-import { Autocomplete } from './controls/autocomplete';
 import { IFeatureModel } from '../interfaces/IFeatureModel';
-import { IControl } from '../interfaces/IControl';
-import { ToggleButtons } from './controls/toggle-buttons';
-import { RadioButtons } from './controls/radio-buttons';
-import { Checkbox } from './controls/checkbox';
-import { Switch } from './controls/switch';
-import { FileInput } from './controls/file-input';
-import { Datepicker } from './datepicker';
+import {
+  Input,
+  Select,
+  Autocomplete,
+  Checkbox,
+  RadioButtons,
+  ToggleButtons,
+  Switch,
+  FileInput,
+} from '.';
+import { FeatureModel } from '../feature/feature.model';
+import { IDependence } from '../interfaces/IDependence';
 
 interface FormProps<T = any> {
   featureModel: IFeatureModel;
@@ -52,6 +54,22 @@ export function Form<T = any>(props: FormProps<T>) {
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = props.featureModel.attributes.filter(
+      (feature) => feature.name === event.target.name
+    )[0];
+
+    if (target.depend) {
+      target.depend.forEach(({ name, value, action }: IDependence) => {
+        const source = props.featureModel.attributes.filter(
+          (feature) => feature.name === name
+        )[0];
+
+        if (event.target.value === value) {
+          source[action] = !source[action];
+        }
+      });
+    }
+
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -68,6 +86,13 @@ export function Form<T = any>(props: FormProps<T>) {
     });
   };
 
+  const handleDatepicker = (date: any, name: string) => {
+    setState({
+      ...state,
+      [name]: date,
+    });
+  };
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     console.log('Submitted');
@@ -78,17 +103,16 @@ export function Form<T = any>(props: FormProps<T>) {
       <h1>Form</h1>
       <Grid container spacing={2}>
         {props.featureModel.attributes.map(
-          ({ label, name, type, kind, ...rest }: any) => {
+          ({ label, name, type, kind, hide, ...rest }: any) => {
             return (
-              <Grid item key={label}>
-                {kind === 'input' && (
+              <Fragment key={label}>
+                {!hide && kind === 'input' && (
                   <Input
                     {...rest}
                     name={name}
                     value={state[name]}
                     label={label}
                     type={type}
-                    shrink
                     onChange={handleChange}
                   />
                 )}
@@ -102,7 +126,7 @@ export function Form<T = any>(props: FormProps<T>) {
                     onChange={handleSelectChange}
                   />
                 )}
-                {kind === 'autocomplete' && (
+                {/* {kind === 'autocomplete' && (
                   <Autocomplete
                     {...rest}
                     value={state[name]}
@@ -111,7 +135,7 @@ export function Form<T = any>(props: FormProps<T>) {
                     type={type}
                     onHandleChange={handleAutocompleteChange}
                   />
-                )}
+                )} */}
                 {kind === 'toggle-buttons' && (
                   <ToggleButtons
                     {...rest}
@@ -155,10 +179,7 @@ export function Form<T = any>(props: FormProps<T>) {
                     onChange={handleFileChange}
                   />
                 )}
-                {kind === 'datepicker' && (
-                  <Datepicker {...rest} name={name} label={label} />
-                )}
-              </Grid>
+              </Fragment>
             );
           }
         )}

@@ -1,5 +1,7 @@
-import { SelectProps } from '../components/controls/select';
 import { Color, Placement } from '../types';
+import { IInputControl } from './IInputControl';
+import { IOptionControl } from './IOptionControl';
+import { IDependence } from './IDependence';
 type Kind =
   | 'input'
   | 'select'
@@ -11,7 +13,7 @@ type Kind =
   | 'file'
   | 'datepicker';
 
-export interface IControl extends SelectProps {
+export interface IControl extends IInputControl, IOptionControl {
   kind: Kind;
   renderOption?: any;
   onHandleChange?(event: any, newValue: string | null, name: string): void;
@@ -21,4 +23,9 @@ export interface IControl extends SelectProps {
   color?: Color;
   labelPlacement?: Placement;
   date?: Date;
+  onFocusChange?(focused?: any): void;
+  minDate?: Date;
+  maxDate?: Date;
+  depend?: IDependence[];
+  hide?: boolean;
 }

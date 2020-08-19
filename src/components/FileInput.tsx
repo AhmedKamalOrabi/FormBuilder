@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { Color } from '../../types';
+import { Color } from '../types';
 
 type HTMLInputEvent = React.ChangeEvent<HTMLInputElement> &
   React.ChangeEvent<EventTarget>;
