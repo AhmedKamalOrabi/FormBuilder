@@ -4,14 +4,12 @@ import { IFeatureModel } from '../interfaces/IFeatureModel';
 import {
   Input,
   Select,
-  Autocomplete,
   Checkbox,
   RadioButtons,
   ToggleButtons,
   Switch,
   FileInput,
 } from '.';
-import { FeatureModel } from '../feature/feature.model';
 import { IDependence } from '../interfaces/IDependence';
 
 interface FormProps<T = any> {
@@ -65,7 +63,7 @@ export function Form<T = any>(props: FormProps<T>) {
         )[0];
 
         if (event.target.value === value) {
-          // source[action] = !source[action];
+          console.log(source)
         }
       });
     }
@@ -86,12 +84,12 @@ export function Form<T = any>(props: FormProps<T>) {
     });
   };
 
-  const handleDatepicker = (date: any, name: string) => {
-    setState({
-      ...state,
-      [name]: date,
-    });
-  };
+  // const handleDatepicker = (date: any, name: string) => {
+  //   setState({
+  //     ...state,
+  //     [name]: date,
+  //   });
+  // };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();

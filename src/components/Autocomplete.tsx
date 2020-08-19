@@ -17,11 +17,11 @@ export interface AutocompleteProps extends IInputControl, IOptionControl {
   autoComplete?: string;
 }
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
+// function sleep(delay = 0) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, delay);
+//   });
+// }
 
 export const Autocomplete: React.FC<AutocompleteProps> = ({
   options: optionsData,
@@ -41,6 +41,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const [keyword, setkeyword] = useState('');
 
   const handleInputChange = (event: any, newValue: any) => {
+    console.log(keyword)
     setkeyword(newValue);
   };
   const options = useOptionsData({ optionsData, getOptionsData });

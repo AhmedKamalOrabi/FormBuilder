@@ -4,7 +4,6 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  FormHelperText,
   Switch as MSwitch,
   Grid,
 } from '@material-ui/core';
@@ -66,7 +65,6 @@ export const Switch: React.FC<SwitchProps> = ({
               />
             ))}
         </FormGroup>
-        {/* <FormHelperText>Be careful</FormHelperText> */}
       </FormControl>
     </Grid>
   );

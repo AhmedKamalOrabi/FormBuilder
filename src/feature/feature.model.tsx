@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import { getCountries } from '../services/countries.service';
 import { getPostsByUserId } from '../services/posts.service';
 import { IFeatureModel } from '../interfaces/IFeatureModel';
-import { IUser } from '../interfaces/IUser';
-import { ICountry } from '../interfaces/ICountry';
-import moment from 'moment';
+// import { IUser } from '../interfaces/IUser';
+// import { ICountry } from '../interfaces/ICountry';
+// import moment from 'moment';
 
 // interface IRadioOption {
 //   label: string;
@@ -16,25 +16,25 @@ interface OptionProps {
   option?: any;
 }
 
-function countryToFlag(alpha2Code: string) {
-  return typeof String.fromCodePoint !== 'undefined'
-    ? alpha2Code
-        .toUpperCase()
-        .replace(/./g, (char) =>
-          String.fromCodePoint(char.charCodeAt(0) + 127397)
-        )
-    : alpha2Code;
-}
+// function countryToFlag(alpha2Code: string) {
+//   return typeof String.fromCodePoint !== 'undefined'
+//     ? alpha2Code
+//         .toUpperCase()
+//         .replace(/./g, (char) =>
+//           String.fromCodePoint(char.charCodeAt(0) + 127397)
+//         )
+//     : alpha2Code;
+// }
 
-const RenderOption: React.FC<OptionProps> = ({ option }) => {
-  return (
-    <React.Fragment>
-      <span>{countryToFlag(option.alpha2Code)}</span>
-      {option.name} ({option.alpha2Code}){' '}
-      <img width={20} src={option.flag} alt={option.name} />
-    </React.Fragment>
-  );
-};
+// const RenderOption: React.FC<OptionProps> = ({ option }) => {
+//   return (
+//     <React.Fragment>
+//       <span>{countryToFlag(option.alpha2Code)}</span>
+//       {option.name} ({option.alpha2Code}){' '}
+//       <img width={20} src={option.flag} alt={option.name} />
+//     </React.Fragment>
+//   );
+// };
 
 export const FeatureModel: IFeatureModel = {
   attributes: [
